@@ -1,0 +1,25 @@
+{
+  "name": "movie_recommender",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-bootstrap": "^2.7.2",
+    "react-dom": "18.2.0",
+    "react-multi-carousel": "^2.8.3",
+    "react-redux": "^8.0.5",
+    "react-slick": "^0.29.0",
+    "redux": "^4.2.1",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.9"
+  }
+}
