@@ -1,0 +1,10 @@
+html, body {
+  background-color: #fff;
+}
+
+.slick-prev,
+.slick-next {
+  color: black;
+  font-size: 30px;
+}
+
