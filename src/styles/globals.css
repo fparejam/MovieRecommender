@@ -1,10 +1,4 @@
-html, body {
-  background-color: #fff;
+body {
+	background: #141414 !important;
+	color: #ffffff !important;
 }
-
-.slick-prev,
-.slick-next {
-  color: black;
-  font-size: 30px;
-}
-
