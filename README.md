@@ -2,6 +2,8 @@
 
 This project is a recommendation system for a movie streaming service, built using NextJS, ReactJS, Redux, and serverless Python functions. The recommendation system suggests movies featured on imdb to users based on their liking.
 
+Frontend UI is a clone ofChris Blakely's project @ https://github.com/chrisblakely01/react-movie-app
+
 ## Usage
 
 To use the recommendation system, simply follow the link to the deployed project hosted on Vercel. The recommendation system provides personalized movie and TV show recommendations based on your viewing history and preferences.
