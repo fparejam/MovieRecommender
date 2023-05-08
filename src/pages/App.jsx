@@ -39,12 +39,17 @@ const App = () => {
   };
 
   const addFavouriteMovie = (movie) => {
+    const isDuplicate = favourites.some((favourite) => favourite.Title === movie.Title);
+  
+    if (isDuplicate) {
+      return;
+    }
+  
     const newFavouriteList = [...favourites, movie];
     setFavourites(newFavouriteList);
     saveToLocalStorage(newFavouriteList);
   };
 
-  console.log(favourites);
 
   const removeFavouriteMovie = (movie) => {
     const newFavouriteList = favourites.filter(
