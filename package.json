@@ -20,6 +20,8 @@
     "react-slick": "^0.29.0",
     "redux": "^4.2.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "python-shell": "^1.0.8",
+    "python": "3.9.x"
   }
 }
