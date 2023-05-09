@@ -5,24 +5,16 @@ import MovieList from '../components/MovieList';
 import MovieListHeading from '../components/MovieListHeading';
 import AddFavourites from '../components/AddFavourites';
 import RemoveFavourites from '../components/RemoveFavourites';
+import RecommendationOverlay from '../components/RecommendationOverlay';
 
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
 
   useEffect(() => {
     setMovies(moviesJSON);
   }, []);
-
-  const recent20Movies = useMemo(() => 
-    [...movies].slice(0, 20),
-    [movies]
-  );
-  
-  const top20Movies = useMemo(() =>
-    [...movies].sort((a, b) => b.imdbRating - a.imdbRating).slice(0, 20),
-    [movies]
-  );
 
   useEffect(() => {
     const movieFavourites = JSON.parse(
@@ -33,6 +25,34 @@ const App = () => {
       setFavourites(movieFavourites);
     }
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/recommend', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            movie_list: favourites.map((favourite) => favourite.Title)
+          })
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch recommendations');
+        }
+  
+        const recommendations = await response.json();
+        setRecommendedMovies(recommendations);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (favourites.length >=1){
+      fetchData();
+    }
+  }, [favourites]);
 
   const saveToLocalStorage = (items) => {
     localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
@@ -50,7 +70,6 @@ const App = () => {
     saveToLocalStorage(newFavouriteList);
   };
 
-
   const removeFavouriteMovie = (movie) => {
     const newFavouriteList = favourites.filter(
       (favourite) => favourite.Title !== movie.Title
@@ -60,6 +79,15 @@ const App = () => {
     saveToLocalStorage(newFavouriteList);
   };
 
+  const recent20Movies = useMemo(() => 
+    [...movies].slice(0, 20),
+    [movies]
+  );
+  
+  const top20Movies = useMemo(() =>
+    [...movies].sort((a, b) => b.imdbRating - a.imdbRating).slice(0, 20),
+    [movies]
+  );
   return (
     <div className={`container-fluid`}>
       <div className='row d-flex align-items-center mt-4 mb-4'>
@@ -95,6 +123,18 @@ const App = () => {
             movies={favourites}
             handleFavouritesClick={removeFavouriteMovie}
             favouriteComponent={RemoveFavourites}
+          />
+        </div>
+      </div>
+      <div className='row d-flex align-items-center mt-4 mb-4'>
+        <MovieListHeading heading={`Because you liked... ${favourites.length > 0 ? favourites[0].Title : ''}`} />
+      </div>
+      <div className='row flex-nowrap overflow-auto'>
+        <div className='d-flex'>
+          <MovieList
+            movies={recommendedMovies}
+            handleFavouritesClick={""}
+            favouriteComponent={RecommendationOverlay}
           />
         </div>
       </div>

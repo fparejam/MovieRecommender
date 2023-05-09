@@ -9,8 +9,8 @@ export default async (req, res) => {
 
   const { movie_list } = req.body;
 
-  const pythonScriptPath = path.join(process.cwd(), 'pages', 'api', 'recommend.py');
-
+  const pythonScriptPath = path.join(process.cwd(), 'src', 'pages', 'api', 'recommend.py');
+  
   const pythonProcess = spawn('python3', [pythonScriptPath, JSON.stringify(movie_list)]);
 
   let pythonOutput = '';
