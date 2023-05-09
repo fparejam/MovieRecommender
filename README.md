@@ -16,13 +16,7 @@ To use the recommendation system, simply follow the link to the deployed project
 
 ## API Documentation
 
-The recommendation system provides an API for retrieving personalized recommendations based on user preferences. The API includes the following endpoints:
-
-- `/recommendations/single-movie` - Returns a list of recommended movies and TV shows based on a single movie like.
-
-- `/recommendations/personalized` - Returns a list of personalized recommendations based on user viewing history and preferences.
-
-To use the API, make a GET request to the desired endpoint with the required parameters.
+The recommendation system provides works on Vercel Serverless Functions instead of a backend for retrieving personalized recommendations based on user preferences. It provides recommendations that return recommended movies based on both a single movie like and based on user viewing history and preferences.
 
 ## Technologies Used
 
