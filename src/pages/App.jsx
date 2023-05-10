@@ -11,7 +11,6 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
-
   useEffect(() => {
     setMovies(moviesJSON);
   }, []);
@@ -29,14 +28,12 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/recommend', {
+        const response = await fetch('https://recommendationsystemsbackend-production.up.railway.app/recommend', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            movie_list: favourites.map((favourite) => favourite.Title)
-          })
+          body: JSON.stringify(favourites)
         });
   
         if (!response.ok) {
@@ -49,10 +46,11 @@ const App = () => {
         console.error(error);
       }
     };
-    if (favourites.length >=1){
+    if (favourites.length = 1){
       fetchData();
     }
   }, [favourites]);
+
 
   const saveToLocalStorage = (items) => {
     localStorage.setItem('react-movie-app-favourites', JSON.stringify(items));
