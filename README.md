@@ -25,7 +25,7 @@ The recommendation system is built using the following technologies and tools:
 - NextJS
 - ReactJS
 - Redux
-- Python on Vercel Serverless Functions
+- Python - Flask hosted in Railway deployment
 - Vercel
 
 ## Contact Information
