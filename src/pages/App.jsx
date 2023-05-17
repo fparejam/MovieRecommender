@@ -11,6 +11,8 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
+  const [multipleRecommendedMovies, setMultipleRecommendedMovies] = useState([]);
+
   useEffect(() => {
     setMovies(moviesJSON);
   }, []);
@@ -51,6 +53,34 @@ const App = () => {
       fetchData();
     }
   }, [favourites[0]]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://recommendationsystemsbackend-production.up.railway.app/multiple_recommend', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(favourites)
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch recommendations');
+        }
+  
+        const multipleRecommendedMovies = await response.json();
+        setMultipleRecommendedMovies(multipleRecommendedMovies);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    if (favourites.length >= 5) {
+      fetchData();
+    }
+  }, [favourites.length]);
+  
 
 
   const saveToLocalStorage = (items) => {
@@ -134,6 +164,22 @@ const App = () => {
             <div className='d-flex'>
               <MovieList
                 movies={recommendedMovies}
+                handleFavouritesClick={""}
+                favouriteComponent={RecommendationOverlay}
+              />
+            </div>
+          </div>
+        </>
+      )}
+      {favourites && favourites.length >= 5 && (
+        <>
+          <div className='row d-flex align-items-center mt-4 mb-4'>
+            <MovieListHeading heading={`We think you may like...`} />
+          </div>
+          <div className='row flex-nowrap overflow-auto'>
+            <div className='d-flex'>
+              <MovieList
+                movies={multipleRecommendedMovies}
                 handleFavouritesClick={""}
                 favouriteComponent={RecommendationOverlay}
               />
